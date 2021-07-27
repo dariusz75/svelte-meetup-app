@@ -1,8 +1,18 @@
 <script>
 import Header from './UI/Header.svelte'
 import MeetupGrid from './Meetups/MeetupGrid.svelte'
+import TextInput from './UI/TextInput.svelte'
 
-const meetups = [
+let id = '';
+let title = '';
+let subtitle = '';
+let description = '';
+let imageUrl = '';
+let address = '';
+let email = '';
+let descritption = '';
+
+let meetups = [
   {
     id: 'm1',
     title: 'HTML Basics',
@@ -22,12 +32,85 @@ const meetups = [
     email: 'codingmeatup@google.com'
   }
 ]
+
+const addMeetup = () => {
+  const newMeetup = {
+    id: Math.random().toString(),
+    title,
+    subtitle,
+    description,
+    imageUrl,
+    address,
+    email,
+    descritption
+  }
+
+  meetups = [newMeetup, ...meetups]
+
+}
+
 </script>
 
 <Header />
-<MeetupGrid meetups={meetups} />
-
+<main>
+  <form on:submit|preventDefault={addMeetup}>
+    <TextInput 
+      id="title" 
+      type="text"
+      label="Title" 
+      value={title}
+      on:input={ e => title = e.target.value }
+    />
+    <TextInput 
+      id="subtitle" 
+      type="text"
+      label="Subtitle" 
+      value={subtitle}
+      on:input={ e => subtitle = e.target.value }
+    />
+    <TextInput 
+      id="address" 
+      type="text"
+      label="Address" 
+      value={address}
+      on:input={ e => address = e.target.value }
+    />
+    <TextInput 
+      id="imageUrl" 
+      type="text"
+      label="Image URL" 
+      value={imageUrl}
+      on:input={ e => imageUrl = e.target.value }
+    />
+    <TextInput 
+      id="email" 
+      type="email"
+      label="Email" 
+      value={email}
+      on:input={ e => email = e.target.value }
+    />
+    <TextInput 
+      controlType="textarea"
+      rows="3"
+      id="descritption" 
+      label="Descritption" 
+      value={descritption}
+      on:input={ e => descritption = e.target.value }
+    />
+    <button>Submit</button>
+  </form>
+  <MeetupGrid {meetups} />
+</main>
 
 <style>
-  
+ 
+  main {
+    margin-top: 5rem;
+  }
+
+  form {
+    width: 30rem;
+    max-width: 90%;
+    margin: auto;
+  }
 </style>

@@ -18,7 +18,6 @@
 
 <style>
   section {
-    margin-top: 5rem;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
