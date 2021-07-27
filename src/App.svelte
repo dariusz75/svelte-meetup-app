@@ -2,6 +2,7 @@
 import Header from './UI/Header.svelte'
 import MeetupGrid from './Meetups/MeetupGrid.svelte'
 import TextInput from './UI/TextInput.svelte'
+import Button from './UI/Button.svelte'
 
 let id = '';
 let title = '';
@@ -97,7 +98,7 @@ const addMeetup = () => {
       value={descritption}
       on:input={ e => descritption = e.target.value }
     />
-    <button>Submit</button>
+    <Button type="submit" caption="Save" />
   </form>
   <MeetupGrid {meetups} />
 </main>
