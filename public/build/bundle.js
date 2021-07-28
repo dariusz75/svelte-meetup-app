@@ -605,7 +605,7 @@ var app = (function () {
     			t = text(/*caption*/ ctx[1]);
     			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*mode*/ ctx[3]) + " svelte-11arh0"));
     			attr_dev(button, "type", button_type_value = "=" + /*type*/ ctx[0]);
-    			add_location(button, file$4, 10, 2, 153);
+    			add_location(button, file$4, 10, 2, 178);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -649,7 +649,7 @@ var app = (function () {
     			t = text(/*caption*/ ctx[1]);
     			attr_dev(a, "href", /*href*/ ctx[2]);
     			attr_dev(a, "class", "svelte-11arh0");
-    			add_location(a, file$4, 8, 2, 113);
+    			add_location(a, file$4, 8, 2, 138);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, a, anchor);
@@ -736,10 +736,10 @@ var app = (function () {
     function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Button", slots, []);
-    	let { type } = $$props;
+    	let { type = "button" } = $$props;
     	let { caption } = $$props;
-    	let { href } = $$props;
-    	let { mode } = $$props;
+    	let { href = null } = $$props;
+    	let { mode = null } = $$props;
     	const writable_props = ["type", "caption", "href", "mode"];
 
     	Object.keys($$props).forEach(key => {
@@ -784,20 +784,8 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*type*/ ctx[0] === undefined && !("type" in props)) {
-    			console.warn("<Button> was created without expected prop 'type'");
-    		}
-
     		if (/*caption*/ ctx[1] === undefined && !("caption" in props)) {
     			console.warn("<Button> was created without expected prop 'caption'");
-    		}
-
-    		if (/*href*/ ctx[2] === undefined && !("href" in props)) {
-    			console.warn("<Button> was created without expected prop 'href'");
-    		}
-
-    		if (/*mode*/ ctx[3] === undefined && !("mode" in props)) {
-    			console.warn("<Button> was created without expected prop 'mode'");
     		}
     	}
 
@@ -1407,7 +1395,7 @@ var app = (function () {
     			attr_dev(input, "id", /*id*/ ctx[1]);
     			input.value = /*value*/ ctx[4];
     			attr_dev(input, "class", "svelte-e6rq57");
-    			add_location(input, file$1, 15, 4, 324);
+    			add_location(input, file$1, 15, 4, 347);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
@@ -1461,7 +1449,7 @@ var app = (function () {
     			attr_dev(textarea, "id", /*id*/ ctx[1]);
     			textarea.value = /*value*/ ctx[4];
     			attr_dev(textarea, "class", "svelte-e6rq57");
-    			add_location(textarea, file$1, 13, 4, 245);
+    			add_location(textarea, file$1, 13, 4, 268);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, textarea, anchor);
@@ -1525,9 +1513,9 @@ var app = (function () {
     			if_block.c();
     			attr_dev(label_1, "for", "title");
     			attr_dev(label_1, "class", "svelte-e6rq57");
-    			add_location(label_1, file$1, 11, 2, 171);
+    			add_location(label_1, file$1, 11, 2, 194);
     			attr_dev(div, "class", "form-control svelte-e6rq57");
-    			add_location(div, file$1, 10, 0, 142);
+    			add_location(div, file$1, 10, 0, 165);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1576,12 +1564,12 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("TextInput", slots, []);
-    	let { controlType } = $$props;
+    	let { controlType = null } = $$props;
     	let { id } = $$props;
     	let { label } = $$props;
-    	let { rows } = $$props;
+    	let { rows = null } = $$props;
     	let { value } = $$props;
-    	let { type } = $$props;
+    	let { type = "text" } = $$props;
     	const writable_props = ["controlType", "id", "label", "rows", "value", "type"];
 
     	Object.keys($$props).forEach(key => {
@@ -1653,10 +1641,6 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*controlType*/ ctx[0] === undefined && !("controlType" in props)) {
-    			console.warn("<TextInput> was created without expected prop 'controlType'");
-    		}
-
     		if (/*id*/ ctx[1] === undefined && !("id" in props)) {
     			console.warn("<TextInput> was created without expected prop 'id'");
     		}
@@ -1665,16 +1649,8 @@ var app = (function () {
     			console.warn("<TextInput> was created without expected prop 'label'");
     		}
 
-    		if (/*rows*/ ctx[3] === undefined && !("rows" in props)) {
-    			console.warn("<TextInput> was created without expected prop 'rows'");
-    		}
-
     		if (/*value*/ ctx[4] === undefined && !("value" in props)) {
     			console.warn("<TextInput> was created without expected prop 'value'");
-    		}
-
-    		if (/*type*/ ctx[5] === undefined && !("type" in props)) {
-    			console.warn("<TextInput> was created without expected prop 'type'");
     		}
     	}
 
