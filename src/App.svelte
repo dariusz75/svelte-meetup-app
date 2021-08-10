@@ -6,6 +6,7 @@ import Button from './UI/Button.svelte'
 import EditMeetup from './Meetups/EditMeetup.svelte'
 
 
+
 let meetups = [
   {
     id: 'm1',
@@ -32,20 +33,20 @@ let meetups = [
 let editMode = null;
 
 
-const addMeetup = () => {
+const addMeetup = (e) => {
+  console.log('event is', e)
   const newMeetup = {
     id: Math.random().toString(),
-    title,
-    subtitle,
-    description,
-    imageUrl,
-    address,
-    email,
-    descritption
+    title: e.detail.title,
+    subtitle: e.detail.subtitle,
+    imageUrl: e.detail.imageUrl,
+    address: e.detail.address,
+    email: e.detail.email,
+    description: e.detail.description
   }
 
   meetups = [newMeetup, ...meetups]
-
+  editMode = null
 }
 
 const toggleFavourite = (e) => {
@@ -62,9 +63,13 @@ const toggleFavourite = (e) => {
 
 <Header />
 <main>
-  <Button caption="New Meetup" on:click={() => {editMode = 'add'}} />
+  <div class="meetup-controlls">
+    <Button on:click={() => {editMode = 'add'}} >
+      New Meetup
+    </Button>
+  </div>
     {#if editMode === 'add'}
-      <EditMeetup />
+      <EditMeetup on:save={addMeetup} />
     {/if}
   <MeetupGrid {meetups} on:togglefavourite={toggleFavourite} />
 </main>
@@ -73,6 +78,10 @@ const toggleFavourite = (e) => {
  
   main {
     margin-top: 5rem;
+  }
+
+  .meetup-controlls {
+    margin: 1rem;
   }
 
 </style>
