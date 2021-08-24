@@ -25,7 +25,7 @@
   }
 </script>
 
-<Modal title="Edit Meetup">
+<Modal title="Edit Meetup" on:cancel >
   <form on:submit|preventDefault={submitForm}>
     <TextInput 
       id="title" 

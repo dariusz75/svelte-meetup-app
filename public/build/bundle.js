@@ -2228,7 +2228,7 @@ var app = (function () {
     const get_footer_slot_changes = dirty => ({});
     const get_footer_slot_context = ctx => ({});
 
-    // (15:6) <Button >
+    // (19:6) <Button on:click={()=>dispatch('cancel')}>
     function create_default_slot$2(ctx) {
     	let t;
 
@@ -2248,14 +2248,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(15:6) <Button >",
+    		source: "(19:6) <Button on:click={()=>dispatch('cancel')}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (14:24)        
+    // (18:24)        
     function fallback_block(ctx) {
     	let button;
     	let current;
@@ -2268,6 +2268,8 @@ var app = (function () {
     			$$inline: true
     		});
 
+    	button.$on("click", /*click_handler_1*/ ctx[4]);
+
     	const block = {
     		c: function create() {
     			create_component(button.$$.fragment);
@@ -2279,7 +2281,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const button_changes = {};
 
-    			if (dirty & /*$$scope*/ 4) {
+    			if (dirty & /*$$scope*/ 32) {
     				button_changes.$$scope = { dirty, ctx };
     			}
 
@@ -2303,7 +2305,7 @@ var app = (function () {
     		block,
     		id: fallback_block.name,
     		type: "fallback",
-    		source: "(14:24)        ",
+    		source: "(18:24)        ",
     		ctx
     	});
 
@@ -2321,10 +2323,12 @@ var app = (function () {
     	let t3;
     	let footer;
     	let current;
-    	const default_slot_template = /*#slots*/ ctx[1].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[2], null);
-    	const footer_slot_template = /*#slots*/ ctx[1].footer;
-    	const footer_slot = create_slot(footer_slot_template, ctx, /*$$scope*/ ctx[2], get_footer_slot_context);
+    	let mounted;
+    	let dispose;
+    	const default_slot_template = /*#slots*/ ctx[2].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[5], null);
+    	const footer_slot_template = /*#slots*/ ctx[2].footer;
+    	const footer_slot = create_slot(footer_slot_template, ctx, /*$$scope*/ ctx[5], get_footer_slot_context);
     	const footer_slot_or_fallback = footer_slot || fallback_block(ctx);
 
     	const block = {
@@ -2341,15 +2345,15 @@ var app = (function () {
     			footer = element("footer");
     			if (footer_slot_or_fallback) footer_slot_or_fallback.c();
     			attr_dev(div0, "class", "modal-backdrop svelte-1vszjfm");
-    			add_location(div0, file$2, 6, 0, 76);
+    			add_location(div0, file$2, 10, 0, 167);
     			attr_dev(h1, "class", "svelte-1vszjfm");
-    			add_location(h1, file$2, 8, 2, 133);
+    			add_location(h1, file$2, 12, 2, 258);
     			attr_dev(div1, "class", "content svelte-1vszjfm");
-    			add_location(div1, file$2, 9, 2, 152);
+    			add_location(div1, file$2, 13, 2, 277);
     			attr_dev(footer, "class", "svelte-1vszjfm");
-    			add_location(footer, file$2, 12, 2, 196);
+    			add_location(footer, file$2, 16, 2, 321);
     			attr_dev(div2, "class", "modal svelte-1vszjfm");
-    			add_location(div2, file$2, 7, 0, 111);
+    			add_location(div2, file$2, 11, 0, 236);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2375,19 +2379,24 @@ var app = (function () {
     			}
 
     			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(div0, "click", /*click_handler*/ ctx[3], false, false, false);
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (!current || dirty & /*title*/ 1) set_data_dev(t1, /*title*/ ctx[0]);
 
     			if (default_slot) {
-    				if (default_slot.p && (!current || dirty & /*$$scope*/ 4)) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[2], !current ? -1 : dirty, null, null);
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 32)) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[5], !current ? -1 : dirty, null, null);
     				}
     			}
 
     			if (footer_slot) {
-    				if (footer_slot.p && (!current || dirty & /*$$scope*/ 4)) {
-    					update_slot(footer_slot, footer_slot_template, ctx, /*$$scope*/ ctx[2], !current ? -1 : dirty, get_footer_slot_changes, get_footer_slot_context);
+    				if (footer_slot.p && (!current || dirty & /*$$scope*/ 32)) {
+    					update_slot(footer_slot, footer_slot_template, ctx, /*$$scope*/ ctx[5], !current ? -1 : dirty, get_footer_slot_changes, get_footer_slot_context);
     				}
     			}
     		},
@@ -2408,6 +2417,8 @@ var app = (function () {
     			if (detaching) detach_dev(div2);
     			if (default_slot) default_slot.d(detaching);
     			if (footer_slot_or_fallback) footer_slot_or_fallback.d(detaching);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -2426,18 +2437,27 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Modal", slots, ['default','footer']);
     	let { title } = $$props;
+    	const dispatch = createEventDispatcher();
     	const writable_props = ["title"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Modal> was created with unknown prop '${key}'`);
     	});
 
+    	const click_handler = () => dispatch("cancel");
+    	const click_handler_1 = () => dispatch("cancel");
+
     	$$self.$$set = $$props => {
     		if ("title" in $$props) $$invalidate(0, title = $$props.title);
-    		if ("$$scope" in $$props) $$invalidate(2, $$scope = $$props.$$scope);
+    		if ("$$scope" in $$props) $$invalidate(5, $$scope = $$props.$$scope);
     	};
 
-    	$$self.$capture_state = () => ({ Button, title });
+    	$$self.$capture_state = () => ({
+    		Button,
+    		createEventDispatcher,
+    		title,
+    		dispatch
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ("title" in $$props) $$invalidate(0, title = $$props.title);
@@ -2447,7 +2467,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [title, slots, $$scope];
+    	return [title, dispatch, slots, click_handler, click_handler_1, $$scope];
     }
 
     class Modal extends SvelteComponentDev {
@@ -2509,7 +2529,7 @@ var app = (function () {
     	return block;
     }
 
-    // (28:0) <Modal title="Edit Meetup">
+    // (28:0) <Modal title="Edit Meetup" on:cancel >
     function create_default_slot$1(ctx) {
     	let form;
     	let textinput0;
@@ -2628,7 +2648,7 @@ var app = (function () {
     			t5 = space();
     			create_component(button.$$.fragment);
     			attr_dev(form, "class", "svelte-w01fj9");
-    			add_location(form, file$1, 28, 2, 611);
+    			add_location(form, file$1, 28, 2, 622);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, form, anchor);
@@ -2673,7 +2693,7 @@ var app = (function () {
     			textinput5.$set(textinput5_changes);
     			const button_changes = {};
 
-    			if (dirty & /*$$scope*/ 16384) {
+    			if (dirty & /*$$scope*/ 32768) {
     				button_changes.$$scope = { dirty, ctx };
     			}
 
@@ -2718,7 +2738,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(28:0) <Modal title=\\\"Edit Meetup\\\">",
+    		source: "(28:0) <Modal title=\\\"Edit Meetup\\\" on:cancel >",
     		ctx
     	});
 
@@ -2738,6 +2758,8 @@ var app = (function () {
     			$$inline: true
     		});
 
+    	modal.$on("cancel", /*cancel_handler*/ ctx[13]);
+
     	const block = {
     		c: function create() {
     			create_component(modal.$$.fragment);
@@ -2752,7 +2774,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			const modal_changes = {};
 
-    			if (dirty & /*$$scope, description, email, imageUrl, address, subtitle, title*/ 16447) {
+    			if (dirty & /*$$scope, description, email, imageUrl, address, subtitle, title*/ 32831) {
     				modal_changes.$$scope = { dirty, ctx };
     			}
 
@@ -2818,6 +2840,10 @@ var app = (function () {
     	const input_handler_4 = e => $$invalidate(4, email = e.target.value);
     	const input_handler_5 = e => $$invalidate(5, description = e.target.value);
 
+    	function cancel_handler(event) {
+    		bubble.call(this, $$self, event);
+    	}
+
     	$$self.$capture_state = () => ({
     		createEventDispatcher,
     		TextInput,
@@ -2859,7 +2885,8 @@ var app = (function () {
     		input_handler_2,
     		input_handler_3,
     		input_handler_4,
-    		input_handler_5
+    		input_handler_5,
+    		cancel_handler
     	];
     }
 
@@ -2882,7 +2909,7 @@ var app = (function () {
     const { console: console_1 } = globals;
     const file = "src/App.svelte";
 
-    // (67:4) <Button on:click={() => {editMode = 'add'}} >
+    // (71:4) <Button on:click={() => {editMode = 'add'}} >
     function create_default_slot(ctx) {
     	let t;
 
@@ -2902,19 +2929,20 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(67:4) <Button on:click={() => {editMode = 'add'}} >",
+    		source: "(71:4) <Button on:click={() => {editMode = 'add'}} >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (71:4) {#if editMode === 'add'}
+    // (75:4) {#if editMode === 'add'}
     function create_if_block(ctx) {
     	let editmeetup;
     	let current;
     	editmeetup = new EditMeetup({ $$inline: true });
     	editmeetup.$on("save", /*addMeetup*/ ctx[2]);
+    	editmeetup.$on("cancel", /*cancelEdit*/ ctx[4]);
 
     	const block = {
     		c: function create() {
@@ -2943,7 +2971,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(71:4) {#if editMode === 'add'}",
+    		source: "(75:4) {#if editMode === 'add'}",
     		ctx
     	});
 
@@ -2970,7 +2998,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	button.$on("click", /*click_handler*/ ctx[4]);
+    	button.$on("click", /*click_handler*/ ctx[5]);
     	let if_block = /*editMode*/ ctx[1] === "add" && create_if_block(ctx);
 
     	meetupgrid = new MeetupGrid({
@@ -2992,9 +3020,9 @@ var app = (function () {
     			t2 = space();
     			create_component(meetupgrid.$$.fragment);
     			attr_dev(div, "class", "meetup-controlls svelte-4kfshh");
-    			add_location(div, file, 65, 2, 1800);
+    			add_location(div, file, 69, 2, 1848);
     			attr_dev(main, "class", "svelte-4kfshh");
-    			add_location(main, file, 64, 0, 1791);
+    			add_location(main, file, 68, 0, 1839);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3014,7 +3042,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			const button_changes = {};
 
-    			if (dirty & /*$$scope*/ 32) {
+    			if (dirty & /*$$scope*/ 64) {
     				button_changes.$$scope = { dirty, ctx };
     			}
 
@@ -3143,6 +3171,10 @@ var app = (function () {
     		$$invalidate(0, meetups = updatedMeetups);
     	};
 
+    	const cancelEdit = () => {
+    		$$invalidate(1, editMode = null);
+    	};
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -3162,7 +3194,8 @@ var app = (function () {
     		meetups,
     		editMode,
     		addMeetup,
-    		toggleFavourite
+    		toggleFavourite,
+    		cancelEdit
     	});
 
     	$$self.$inject_state = $$props => {
@@ -3174,7 +3207,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [meetups, editMode, addMeetup, toggleFavourite, click_handler];
+    	return [meetups, editMode, addMeetup, toggleFavourite, cancelEdit, click_handler];
     }
 
     class App extends SvelteComponentDev {

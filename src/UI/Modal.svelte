@@ -1,10 +1,14 @@
 <script>
 import Button from "./Button.svelte";
 
+import { createEventDispatcher } from 'svelte'
+
 export let title
 
+const dispatch = createEventDispatcher();
+
 </script>
-<div class="modal-backdrop"></div>
+<div class="modal-backdrop" on:click={()=>dispatch('cancel')}></div>
 <div class="modal">
   <h1>{title}</h1>
   <div class="content">
@@ -12,7 +16,7 @@ export let title
   </div>
   <footer>
     <slot name="footer">
-      <Button >Close</Button>
+      <Button on:click={()=>dispatch('cancel')}>Close</Button>
     </slot>
   </footer>
 </div>
