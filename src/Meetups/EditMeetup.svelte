@@ -70,8 +70,11 @@
       value={description}
       on:input={ e => description = e.target.value }
     />
-    <Button type="submit">Save</Button>
   </form>
+  <div slot="footer">
+    <Button mode="outline" on:click={()=>dispatch('cancel')}>Cancel</Button>
+    <Button type="button" on:click={submitForm}>Save</Button>
+  </div>
 </Modal>
 
 <style>

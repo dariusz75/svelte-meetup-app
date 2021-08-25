@@ -15,9 +15,7 @@ const dispatch = createEventDispatcher();
   <slot />
   </div>
   <footer>
-    <slot name="footer">
-      <Button on:click={()=>dispatch('cancel')}>Close</Button>
-    </slot>
+    <slot name="footer" />
   </footer>
 </div>
 
