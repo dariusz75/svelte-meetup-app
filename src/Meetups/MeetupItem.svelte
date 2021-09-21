@@ -10,7 +10,7 @@
   export let description;
   export let address;
   export let email;
-  export let isFavourite;
+  export let isFavorite;
 
   const dispatch = createEventDispatcher();
 
@@ -19,7 +19,7 @@
 <article>
   <header>
     <h1>{title} 
-      {#if isFavourite}
+      {#if isFavorite}
         <Badge>test</Badge> 
       {/if}
     </h1>
@@ -36,11 +36,11 @@
     <Button href="mailto:{email}">Contact</Button>
     <Button 
       mode="outline" 
-      color={isFavourite ? null : 'success'}
+      color={isFavorite ? null : 'success'}
       type="button" 
       on:click={() => dispatch('togglefavourite', id)} 
     >
-    {isFavourite ? 'Unfavourite' : 'Favourite'}
+    {isFavorite ? 'Unfavourite' : 'Favourite'}
     </Button>
     <Button type="button">Show Details</Button>
   </footer>
