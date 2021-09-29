@@ -15,7 +15,7 @@
       email={meetup.email} 
       address={meetup.address}
       isFavorite={meetup.isFavorite}
-      on:togglefavourite
+      on:showdetails
     />
       
   {/each}
